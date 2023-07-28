@@ -1,0 +1,96 @@
+plugins {
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.kotlinAndroid)
+}
+
+android {
+    namespace 'com.aivan.camerax'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.aivan.camerax"
+        minSdk 24
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
+        buildConfig  true
+    }
+}
+
+dependencies {
+
+    implementation libs.core.ktx
+    implementation libs.appcompat
+    implementation libs.material
+    testImplementation libs.junit
+    androidTestImplementation libs.androidx.test.ext.junit
+    androidTestImplementation libs.espresso.core
+
+    //camerax的依赖
+    // https://developer.android.com/codelabs/camerax-getting-started?hl=zh-cn#0
+    //https://developer.android.com/training/camerax/video-capture?hl=zh-cn
+    //https://www.jianshu.com/p/c549f91cb9c5
+    //CameraX core library using the camera2 implementation
+    //https://github.com/android/camera-samples/tree/master
+    def camerax_version = "1.2.0-alpha02" //1.2.0-alpha02
+// The following line is optional, as the core library is included indirectly by camera-camera2
+    //noinspection UseTomlInstead
+    implementation "androidx.camera:camera-core:${camerax_version}"
+    //noinspection UseTomlInstead
+    implementation "androidx.camera:camera-camera2:${camerax_version}"
+// If you want to additionally use the CameraX Lifecycle library
+    //noinspection UseTomlInstead
+    implementation "androidx.camera:camera-lifecycle:${camerax_version}"
+// If you want to additionally use the CameraX VideoCapture library
+    //noinspection UseTomlInstead
+    implementation "androidx.camera:camera-video:${camerax_version}"
+// If you want to additionally use the CameraX View class
+    //noinspection UseTomlInstead
+    implementation "androidx.camera:camera-view:${camerax_version}"
+// If you want to additionally add CameraX ML Kit Vision Integration
+    //noinspection UseTomlInstead
+    implementation "androidx.camera:camera-mlkit-vision:${camerax_version}"
+// If you want to additionally use the CameraX Extensions library
+    //noinspection UseTomlInstead
+    implementation "androidx.camera:camera-extensions:${camerax_version}"
+    //权限请求 支持Androidx https://github.com/guolindev/PermissionX
+    //noinspection UseTomlInstead
+    implementation 'com.guolindev.permissionx:permissionx:1.7.1'
+
+    // if u use AndroidX, use the following
+    implementation 'com.blankj:utilcodex:1.31.1'
+
+    //Coroutine
+    implementation libs.kotlinx.coroutines.android
+    implementation libs.kotlinx.coroutines.core
+
+    // lifecycle
+    implementation libs.androidx.lifecycle.viewmodel.ktx
+    implementation libs.androidx.lifecycle.runtime.ktx
+
+    //noinspection UseTomlInstead
+    implementation 'androidx.work:work-multiprocess:2.8.1'
+    //noinspection UseTomlInstead
+    implementation 'androidx.work:work-runtime:2.8.1'
+
+    api 'com.tencent.tbs:tbssdk:44286'
+}
